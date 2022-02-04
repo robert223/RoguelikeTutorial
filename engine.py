@@ -5,6 +5,7 @@ from tcod.console import Console
 
 from actions import EscapeAction, MovementAction
 from entity import Entity
+from game_map import GameMap
 from input_handlers import EventHandler
 
 """
@@ -15,9 +16,10 @@ player is the player Entity. We have a separate reference to it outside of entit
 
 
 class Engine:
-    def __init__(self, entities: Set[Entity], event_handler: EventHandler, player: Entity):
+    def __init__(self, entities: Set[Entity], event_handler: EventHandler, game_map: GameMap, player: Entity):
         self.entities = entities
         self.event_handler = event_handler
+        self.game_map = game_map
         self.player = player
 
     # iterates through events passed to it using self.event_handler
@@ -28,14 +30,12 @@ class Engine:
             if action is None:
                 continue
 
-            if isinstance(action, MovementAction):
-                self.player.move(dx=action.dx, dy=action.dy)
-
-            elif isinstance(action, EscapeAction):
-                raise SystemExit()
+            action.perform(self, self.player)
 
     # iterates through self.entities and prints them to their proper locations, presents context, then clears the console
     def render(self, console: Console, context: Context) -> None:
+        self.game_map.render(console)
+
         for entity in self.entities:
             console.print(entity.x, entity.y, entity.char, fg=entity.color)
 
