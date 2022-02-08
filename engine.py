@@ -3,16 +3,11 @@ from typing import Set, Iterable, Any
 from tcod.context import Context
 from tcod.console import Console
 
-from actions import EscapeAction, MovementAction
+from tcod.map import compute_fov
+
 from entity import Entity
 from game_map import GameMap
 from input_handlers import EventHandler
-
-"""
-entities is a set (of entities), which behaves kind of like a list that enforces uniqueness. That is, we can’t add an Entity to the set twice, whereas a list would allow that. In our case, having an entity in entities twice doesn’t make sense.
-event_handler is the same event_handler that we used in main.py. It will handle our events.
-player is the player Entity. We have a separate reference to it outside of entities for ease of access. We’ll need to access player a lot more than a random entity in entities.
-"""
 
 
 class Engine:
@@ -21,6 +16,7 @@ class Engine:
         self.event_handler = event_handler
         self.game_map = game_map
         self.player = player
+        self.update_fov()
 
     # iterates through events passed to it using self.event_handler
     def handle_events(self, events: Iterable[Any]) -> None:
@@ -32,12 +28,26 @@ class Engine:
 
             action.perform(self, self.player)
 
-    # iterates through self.entities and prints them to their proper locations, presents context, then clears the console
+            self.update_fov()  # update fov before player's next action
+
+    def update_fov(self) -> None:
+        """Recompute visible area based on player POV"""
+        self.game_map.visible[:] = compute_fov(
+            self.game_map.tiles["transparent"],
+            (self.player.x, self.player.y),
+            radius=8,
+        )
+        # If a tile is "visible" it should be added to "explored".
+        self.game_map.explored |= self.game_map.visible
+
+    # iterates through self.entities and prints them to their proper locations, presents context, and clears the console
     def render(self, console: Console, context: Context) -> None:
         self.game_map.render(console)
 
         for entity in self.entities:
-            console.print(entity.x, entity.y, entity.char, fg=entity.color)
+            # Only print entities that are in the FOV
+            if self.game_map.visible[entity.x, entity.y]:
+                console.print(entity.x, entity.y, entity.char, fg=entity.color)
 
         context.present(console)
 
