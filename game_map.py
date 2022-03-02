@@ -32,6 +32,10 @@ class GameMap:
         )  # array for tiles the player has in memory
 
     @property
+    def gamemap(self) -> GameMap:
+        return self
+
+    @property
     def actors(self) -> Iterator[Actor]:
         """Iterate over this map's living actors."""
         yield from (
@@ -90,5 +94,5 @@ class GameMap:
             if self.visible[entity.x, entity.y]:
                 console.print(
                     x=entity.x, y=entity.y, string=entity.char, fg=entity.color
-                    
+
                 )
