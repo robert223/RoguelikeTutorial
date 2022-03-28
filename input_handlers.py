@@ -17,7 +17,7 @@ import exceptions
 
 if TYPE_CHECKING:
     from engine import Engine
-    from entity import Item
+    from entity import Item, Actor
 
 MOVE_KEYS = {
     # Arrow keys.
@@ -313,3 +313,16 @@ class InventoryDropHandler(InventoryEventHandler):
     def on_item_selected(self, item: Item) -> Optional[Action]:
         """Drop this item."""
         return actions.DropItem(self.engine.player, item)
+
+class BattleUIHandler(EventHandler):
+
+    TITLE = ""
+
+    def __init__(self, engine: Engine, enemy: Actor, player: Actor):
+        self.engine = engine
+        self.enemy = enemy
+        self.player = player
+
+    def on_render(self, console: tcod.Console) -> None:
+
+        super.on_render(console)
