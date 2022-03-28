@@ -47,7 +47,7 @@ def main() -> None:
     engine.update_fov()
 
     engine.message_log.add_message(
-        "Your mom", color.welcome_text
+        "Learn python in just 5 minutes", color.welcome_text
     )
 
     # window management
@@ -55,7 +55,7 @@ def main() -> None:
             screen_width,
             screen_height,
             tileset=tileset,
-            title="Rogue",
+            title="Deckrogue",
             vsync=True,
     ) as context:
         root_console = tcod.Console(screen_width, screen_height, order="F")
