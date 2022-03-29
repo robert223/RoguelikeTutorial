@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from typing import Optional, TYPE_CHECKING
-
+# 0_0
 import tcod
 
 import actions
@@ -14,6 +14,7 @@ from actions import (
 )
 import color
 import exceptions
+from components.cards import Cards
 
 if TYPE_CHECKING:
     from engine import Engine
@@ -314,15 +315,35 @@ class InventoryDropHandler(InventoryEventHandler):
         """Drop this item."""
         return actions.DropItem(self.engine.player, item)
 
+
 class BattleUIHandler(EventHandler):
+    TITLE = "Battle!"
 
-    TITLE = ""
-
-    def __init__(self, engine: Engine, enemy: Actor, player: Actor):
+    def __init__(self, engine: Engine, enemy: Actor, player: Actor, field: list):
         self.engine = engine
         self.enemy = enemy
         self.player = player
+        self.field = field
 
     def on_render(self, console: tcod.Console) -> None:
 
         super.on_render(console)
+
+        height = 17
+        x = 30
+        y = 10
+        width = 20
+
+        console.draw_frame(
+            x=x,
+            y=y,
+            width=width,
+            height=height,
+            title=self.TITLE,
+            clear=True,
+            fg=(255, 255, 255),
+            bg=(0, 0, 0),
+        )
+
+
+
