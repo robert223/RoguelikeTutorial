@@ -5,7 +5,7 @@ from typing import List, Tuple, TYPE_CHECKING
 import numpy as np  # type: ignore
 import tcod
 
-from actions import Action, MeleeAction, MovementAction, WaitAction
+from actions import Action, MeleeAction, MovementAction, WaitAction, InitiateBattleAction
 
 if TYPE_CHECKING:
     from entity import Actor

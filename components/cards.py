@@ -1,5 +1,5 @@
 class Cards:
-
+    
     def __init__(
             self,
             name: str = "unnamed",
@@ -11,5 +11,5 @@ class Cards:
         self.health = max_health
         self.attack: attack
 
-    def attackCard(self, target):
+    def card_attack(self, target):
         target.health -= self.attack

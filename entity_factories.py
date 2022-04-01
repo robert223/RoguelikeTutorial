@@ -25,6 +25,7 @@ orc = Actor(
     inventory=Inventory(capacity=0),
     deck=Deck(card_list=[Cards("Orc",10,3)])
 )
+
 troll = Actor(
     char="T",
     color=(0, 127, 0),

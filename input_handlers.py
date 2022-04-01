@@ -320,6 +320,7 @@ class BattleUIHandler(EventHandler):
     TITLE = "Battle!"
 
     def __init__(self, engine: Engine, enemy: Actor, player: Actor, field: list):
+        super().__init__(engine)
         self.engine = engine
         self.enemy = enemy
         self.player = player
