@@ -4,6 +4,7 @@ import copy
 import math
 from typing import Optional, Tuple, Type, TypeVar, TYPE_CHECKING, Union
 
+from components.deck import Deck
 from render_order import RenderOrder
 
 if TYPE_CHECKING:
@@ -93,6 +94,7 @@ class Actor(Entity):
             ai_cls: Type[BaseAI],
             fighter: Fighter,
             inventory: Inventory,
+            deck: Deck
     ):
         super().__init__(
             x=x,
@@ -111,6 +113,8 @@ class Actor(Entity):
 
         self.inventory = inventory
         self.inventory.parent = self
+
+        self.deck = deck
 
     @property
     def is_alive(self) -> bool:

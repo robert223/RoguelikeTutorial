@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Callable, Optional, Tuple, TYPE_CHECKING, Union
+from typing import Optional, TYPE_CHECKING
 
 import tcod
 
@@ -14,10 +14,11 @@ from actions import (
 )
 import color
 import exceptions
+from components.cards import Cards
 
 if TYPE_CHECKING:
     from engine import Engine
-    from entity import Item
+    from entity import Item, Actor
 
 MOVE_KEYS = {
     # Arrow keys.
@@ -429,3 +430,37 @@ class InventoryDropHandler(InventoryEventHandler):
     def on_item_selected(self, item: Item) -> Optional[Action]:
         """Drop this item."""
         return actions.DropItem(self.engine.player, item)
+
+
+class BattleUIHandler(EventHandler):
+    TITLE = "Battle!"
+
+    def __init__(self, engine: Engine, enemy: Actor, player: Actor, field: list):
+        super().__init__(engine)
+        self.engine = engine
+        self.enemy = enemy
+        self.player = player
+        self.field = field
+
+    def on_render(self, console: tcod.Console) -> None:
+
+        super.on_render(console)
+
+        height = 17
+        x = 30
+        y = 10
+        width = 20
+
+        console.draw_frame(
+            x=x,
+            y=y,
+            width=width,
+            height=height,
+            title=self.TITLE,
+            clear=True,
+            fg=(255, 255, 255),
+            bg=(0, 0, 0),
+        )
+
+
+

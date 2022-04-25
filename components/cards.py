@@ -1,13 +1,15 @@
-class cards:
-
+class Cards:
+    
     def __init__(
             self,
             name: str = "unnamed",
-            symbol: str = "?",
-            health: int = 0,
-            attack: int = 0,
+            max_health : int = 0,
+            attack: int = 0
             ):
         self.name = name
-        self.symbol = symbol
-        self.health = health
+        self.max_health = max_health
+        self.health = max_health
         self.attack: attack
+
+    def card_attack(self, target):
+        target.health -= self.attack

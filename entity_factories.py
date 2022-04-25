@@ -1,5 +1,7 @@
 from components.ai import HostileEnemy
+from components.cards import Cards
 from components import consumable
+from components.deck import Deck
 from components.fighter import Fighter
 from components.inventory import Inventory
 from entity import Actor, Item
@@ -11,6 +13,7 @@ player = Actor(
     ai_cls=HostileEnemy,
     fighter=Fighter(hp=30, defense=2, power=5),
     inventory=Inventory(capacity=26),
+    deck=Deck(card_list=[Cards("Player",30,5)])
 )
 
 orc = Actor(
@@ -20,7 +23,9 @@ orc = Actor(
     ai_cls=HostileEnemy,
     fighter=Fighter(hp=10, defense=0, power=3),
     inventory=Inventory(capacity=0),
+    deck=Deck(card_list=[Cards("Orc",10,3)])
 )
+
 troll = Actor(
     char="T",
     color=(0, 127, 0),
@@ -28,6 +33,7 @@ troll = Actor(
     ai_cls=HostileEnemy,
     fighter=Fighter(hp=16, defense=1, power=4),
     inventory=Inventory(capacity=0),
+    deck=Deck(card_list=[Cards("Troll",16,4)])
 )
 
 confusion_scroll = Item(
