@@ -13,7 +13,7 @@ player = Actor(
     ai_cls=HostileEnemy,
     fighter=Fighter(hp=30, defense=2, power=5),
     inventory=Inventory(capacity=26),
-    deck=Deck(card_list=[Cards("Player",30,5)])
+    deck=Deck(card_list=[Cards("Player", 30, 5)])
 )
 
 orc = Actor(
@@ -23,7 +23,7 @@ orc = Actor(
     ai_cls=HostileEnemy,
     fighter=Fighter(hp=10, defense=0, power=3),
     inventory=Inventory(capacity=0),
-    deck=Deck(card_list=[Cards("Orc",10,3)])
+    deck=Deck(card_list=[Cards("Orc", 10, 3)])
 )
 
 troll = Actor(
@@ -33,7 +33,7 @@ troll = Actor(
     ai_cls=HostileEnemy,
     fighter=Fighter(hp=16, defense=1, power=4),
     inventory=Inventory(capacity=0),
-    deck=Deck(card_list=[Cards("Troll",16,4)])
+    deck=Deck(card_list=[Cards("Troll", 16, 4)])
 )
 
 confusion_scroll = Item(
