@@ -34,7 +34,7 @@ class Engine:
                     pass  # Ignore impossible action exceptions from AI.
 
     def update_fov(self) -> None:
-        """Recompute visible area based on player POV"""
+        """Recompute the visible area based on the players point of view."""
         self.game_map.visible[:] = compute_fov(
             self.game_map.tiles["transparent"],
             (self.player.x, self.player.y),
@@ -43,7 +43,6 @@ class Engine:
         # If a tile is "visible" it should be added to "explored".
         self.game_map.explored |= self.game_map.visible
 
-    # iterates through self.entities and prints them to their proper locations, presents context, and clears the console
     def render(self, console: Console) -> None:
         self.game_map.render(console)
 

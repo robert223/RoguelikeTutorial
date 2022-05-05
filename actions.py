@@ -21,8 +21,12 @@ class Action:
         return self.entity.gamemap.engine
 
     def perform(self) -> None:
-        def perform(self, engine: Engine, entity: Entity) -> None:
-            raise NotImplementedError()
+        """Perform this action with the objects needed to determine its scope.
+        `self.engine` is the scope this action is being performed in.
+        `self.entity` is the object performing the action.
+        This method must be overridden by Action subclasses.
+        """
+        raise NotImplementedError()
 
 
 class PickupAction(Action):
@@ -68,7 +72,8 @@ class ItemAction(Action):
 
     def perform(self) -> None:
         """Invoke the item's ability, this action will be given to provide context."""
-        self.item.consumable.activate(self)
+        if self.item.consumable:
+            self.item.consumable.activate(self)
 
 
 class EscapeAction(Action):
@@ -78,7 +83,20 @@ class EscapeAction(Action):
 
 class DropItem(ItemAction):
     def perform(self) -> None:
+        if self.entity.equipment.item_is_equipped(self.item):
+            self.entity.equipment.toggle_equip(self.item
+                                               )
         self.entity.inventory.drop(self.item)
+
+
+class EquipAction(Action):
+    def __init__(self, entity: Actor, item: Item):
+        super().__init__(entity)
+
+        self.item = item
+
+    def perform(self) -> None:
+        self.entity.equipment.toggle_equip(self.item)
 
 
 class WaitAction(Action):
