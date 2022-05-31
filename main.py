@@ -18,7 +18,6 @@ def save_game(handler: input_handlers.BaseEventHandler, filename: str) -> None:
 
 
 def main() -> None:
-    # variables
     screen_width = 80
     screen_height = 50
 

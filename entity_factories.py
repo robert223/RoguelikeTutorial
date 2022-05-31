@@ -44,6 +44,30 @@ troll = Actor(
     deck=Deck(card_list=[Cards("Troll", 16, 4)])
 )
 
+patrick_bateman = Actor(
+    char="P",
+    color=(255, 0, 0),
+    name="Patrick Bateman (The America Psycho)",
+    ai_cls=HostileEnemy,
+    equipment=Equipment(),
+    fighter=Fighter(hp=30, base_defense=2, base_power=6),
+    inventory=Inventory(capacity=0),
+    level=Level(xp_given=500),
+    deck=Deck(card_list=[Cards("Troll", 16, 4)])
+)
+
+azathoth = Actor(
+    char="A",
+    color=(255, 0, 200),
+    name="Azathoth (from the hit game hp lovecraft)",
+    ai_cls=HostileEnemy,
+    equipment=Equipment(),
+    fighter=Fighter(hp=6969, base_defense=50000, base_power=5000),
+    inventory=Inventory(capacity=0),
+    level=Level(xp_given=50000),
+    deck=Deck(card_list=[Cards("Troll", 16, 4)])
+)
+
 confusion_scroll = Item(
     char="~",
     color=(207, 63, 255),
